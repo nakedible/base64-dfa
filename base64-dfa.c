@@ -1,4 +1,6 @@
-/* decoder */
+#include <stddef.h>
+
+/* Base64 decoder. Written by Nuutti Kotivuori <naked@iki.fi> */
 #define BASE64_INIT 7
 #define BASE64_EOF 13
 #define BASE64_INVALID 15
@@ -52,7 +54,7 @@ void base64_decode(const char *inbuf, char *outbuf, size_t outlen, size_t *resul
   }
 }
 
-/* encoder */
+/* Base64 encoder. Written by Nuutti Kotivuori <naked@iki.fi> */
 static const char base64e[]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 void base64_encode_chunk3(const char *in, char *out) {
   out[0] = base64e[(in[0] >> 2) & 63];
