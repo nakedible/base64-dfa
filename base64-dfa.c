@@ -57,20 +57,20 @@ void base64_decode(const char *inbuf, char *outbuf, size_t outlen, size_t *resul
 /* Base64 encoder. Written by Nuutti Kotivuori <naked@iki.fi> under WTFPL. */
 static const char base64e[]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 void base64_encode_chunk3(const char *in, char *out) {
-  out[0] = base64e[(in[0] >> 2) & 63];
-  out[1] = base64e[(in[0] << 4 | in[1] >> 4) & 63];
-  out[2] = base64e[(in[1] << 2 | in[2] >> 6) & 63];
-  out[3] = base64e[(in[2]) & 63];
+  out[0] = base64e[((in[0] >> 2) & 63)];
+  out[1] = base64e[((in[0] << 4) & 48) | ((in[1] >> 4) & 15)];
+  out[2] = base64e[((in[1] << 2) & 60) | ((in[2] >> 6) & 3)];
+  out[3] = base64e[((in[2]) & 63)];
 }
 void base64_encode_chunk2(const char *in, char *out) {
-  out[0] = base64e[(in[0] >> 2) & 63];
-  out[1] = base64e[(in[0] << 4 | in[1] >> 4) & 63];
-  out[2] = base64e[(in[1] << 2) & 63];
+  out[0] = base64e[((in[0] >> 2) & 63)];
+  out[1] = base64e[((in[0] << 4) & 48) | ((in[1] >> 4) & 15)];
+  out[2] = base64e[((in[1] << 2) & 60)];
   out[3] = '=';
 }
 void base64_encode_chunk1(const char *in, char *out) {
-  out[0] = base64e[(in[0] >> 2) & 63];
-  out[1] = base64e[(in[0] << 4) & 63];
+  out[0] = base64e[((in[0] >> 2) & 63)];
+  out[1] = base64e[((in[0] << 4) & 48)];
   out[2] = '=';
   out[3] = '=';
 }
